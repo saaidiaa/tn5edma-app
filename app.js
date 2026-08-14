@@ -7,6 +7,7 @@
 const BLOG_URL = "https://www.tn5edma.com/";
 const FB_URL = "https://www.facebook.com/share/19FyPes5yC/";
 const FEED_URL = BLOG_URL + "feeds/posts/default";
+const AGG_URL = "./data/jobs.json"; // المجمّع التلقائي (Tanitjobs/Keejob/بوابة المناظرات/...)
 
 const LS_FAVS = "tn5edma_favs_v1";
 const LS_PREFS = "tn5edma_prefs_v1";
@@ -112,7 +113,9 @@ function snapshotJob(job) {
     content: job.content,
     labels: job.labels || [],
     link: job.link,
-    thumb: job.thumb || ""
+    thumb: job.thumb || "",
+    source: job.source || "",
+    sourceLabel: job.sourceLabel || ""
   };
 }
 
@@ -489,6 +492,7 @@ function buildCard(j) {
       <div class="job-meta">
         <span class="badge section">${escapeHtml(sectionOfJob(j))}</span>
         <span class="badge date">🗓 ${formatDate(j.published)}</span>
+        ${j.sourceLabel ? `<span class="badge source">🔗 ${escapeHtml(j.sourceLabel)}</span>` : ""}
         ${deadlineBadge}
       </div>
       <p class="job-excerpt">${escapeHtml(excerpt(j.content))}</p>
@@ -519,6 +523,7 @@ function openDetail(j) {
     <div class="job-meta">
       <span class="badge section">${escapeHtml(sectionOfJob(j))}</span>
       <span class="badge date">🗓 ${formatDate(j.published)}</span>
+      ${j.sourceLabel ? `<span class="badge source">🔗 ${escapeHtml(j.sourceLabel)}</span>` : ""}
       ${dl ? `<span class="badge deadline">⏰ ${escapeHtml(dl.text)}</span>` : ""}
     </div>
     ${stripHtml(j.content).innerHTML}
@@ -600,14 +605,46 @@ async function init() {
   await refresh();
 }
 
+async function loadAggregated() {
+  try {
+    const r = await fetch(AGG_URL, { cache: "no-store" });
+    if (!r.ok) return [];
+    const data = await r.json();
+    const arr = Array.isArray(data) ? data : (data.jobs || []);
+    return arr
+      .filter((j) => j && j.title && j.link)
+      .map((j) => ({
+        title: j.title,
+        published: j.published || new Date().toISOString(),
+        content: j.content || "",
+        labels: Array.isArray(j.labels) ? j.labels : [],
+        link: j.link,
+        thumb: j.thumb || "",
+        source: j.source || "",
+        sourceLabel: j.sourceLabel || ""
+      }));
+  } catch (e) {
+    console.warn("تعذّر تحميل المجمّع:", e);
+    return [];
+  }
+}
+
 async function refresh() {
   const btn = document.getElementById("refreshBtn");
   btn.classList.add("spin");
   document.getElementById("statusText").textContent = "جارِ تحميل العروض…";
   try {
-    const data = await loadFeed();
-    const entries = (data.feed && data.feed.entry) || [];
-    allJobs = entries.map(normalize);
+    const [feedData, agg] = await Promise.all([
+      loadFeed().catch(() => null),
+      loadAggregated().catch(() => [])
+    ]);
+    let jobs = [];
+    if (feedData && feedData.feed && feedData.feed.entry) {
+      jobs = feedData.feed.entry.map(normalize);
+    }
+    if (Array.isArray(agg)) jobs = jobs.concat(agg);
+    if (jobs.length === 0) throw new Error("لا توجد عروض");
+    allJobs = jobs;
     allJobs.sort((a, b) => new Date(b.published) - new Date(a.published));
     cacheJobs(allJobs);
     usingCache = false;
