@@ -1,0 +1,48 @@
+name: Aggregate job offers
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/aggregate.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aggregate
+  cancel-in-progress: false
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run aggregator
+        env:
+          DEBUG: "0"
+        run: node scripts/aggregate.mjs
+
+      - name: Commit data
+        run: |
+          git config user.name "tn5edma-bot"
+          git config user.email "bot@tn5edma.app"
+          if [ -n "$(git status --porcelain data/jobs.json)" ]; then
+            git add data/jobs.json
+            git commit -m "chore: auto-update aggregated jobs [skip ci]"
+            git push
+          else
+            echo "No changes to jobs.json"
+          fi
