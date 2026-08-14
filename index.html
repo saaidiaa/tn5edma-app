@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Tn5edma — عروض الشغل في تونس</title>
+  <meta name="description" content="تطبيق مجاني يجمع كل مناظرات الوظيفة العمومية وعروض الشغل الخاصة في تونس، مرتبة حسب الأقسام ومحدّث تلقائياً من مدونة Tn5edma." />
+  <meta name="theme-color" content="#e53e3e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://www.tn5edma.com" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- رأس التطبيق -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="icons/icon-192.png" alt="Tn5edma" class="brand-logo" />
+        <div class="brand-text">
+          <h1>Tn5edma</h1>
+          <p>عروض الشغل في تونس</p>
+        </div>
+      </div>
+      <button id="installBtn" class="install-btn" hidden>تثبيت التطبيق ⤓</button>
+    </div>
+  </header>
+
+  <!-- شريط البحث -->
+  <div class="search-bar">
+    <input id="searchInput" type="search" placeholder="ابحث عن وظيفة، وزارة، اختصاص…" autocomplete="off" />
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <!-- الأقسام -->
+  <nav id="sections" class="sections" aria-label="الأقسام"></nav>
+
+  <!-- عدّاد النتائج -->
+  <div class="status-row">
+    <span id="statusText" class="status-text">جارِ تحميل العروض…</span>
+    <span id="refreshBtn" class="refresh-btn" title="تحديث">↻</span>
+  </div>
+
+  <!-- قائمة العروض -->
+  <main id="jobsList" class="jobs-list"></main>
+
+  <div class="load-more-wrap">
+    <button id="loadMoreBtn" class="load-more" hidden>عرض المزيد من العروض</button>
+  </div>
+
+  <!-- نافذة تفاصيل العرض -->
+  <div id="detailOverlay" class="detail-overlay" hidden>
+    <div class="detail-sheet">
+      <div class="detail-head">
+        <button id="detailClose" class="icon-btn" aria-label="إغلاق">✕</button>
+        <button id="detailShare" class="icon-btn" aria-label="مشاركة">↗</button>
+      </div>
+      <div id="detailBody" class="detail-body"></div>
+    </div>
+  </div>
+
+  <!-- التذييل -->
+  <footer class="app-footer">
+    <p>مصدر العروض: <a href="https://www.tn5edma.com/" target="_blank" rel="noopener">Tn5edma.com</a></p>
+    <div class="footer-links">
+      <a href="https://www.tn5edma.com/" target="_blank" rel="noopener">المدونة</a>
+      <a href="https://www.facebook.com/share/19FyPes5yC/" target="_blank" rel="noopener">صفحة الفايسبوك</a>
+    </div>
+    <p class="footer-note">تطبيق مجاني 100% — يُحدَّث تلقائياً</p>
+  </footer>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
