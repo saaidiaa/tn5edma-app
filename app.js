@@ -155,8 +155,9 @@ function renderSections() {
 
 function applyFilters() {
   const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  const section = SECTIONS.find((s) => s.id === activeSection) || SECTIONS[0];
   filtered = allJobs.filter((j) => {
-    const okSection = inSection(j, activeSection);
+    const okSection = inSection(j, section);
     if (!okSection) return false;
     if (!q) return true;
     const hay = (j.title + " " + j.labels.join(" ") + " " + stripHtml(j.content).textContent).toLowerCase();
