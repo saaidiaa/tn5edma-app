@@ -36,10 +36,27 @@
   <!-- الأقسام -->
   <nav id="sections" class="sections" aria-label="الأقسام"></nav>
 
+  <!-- أدوات: إخفاء المنتهية + الترتيب -->
+  <div class="toolbar">
+    <label class="toggle">
+      <input type="checkbox" id="hideExpired" />
+      <span>إخفاء المنتهية</span>
+    </label>
+    <label class="sort-wrap">
+      <span class="sort-label">ترتيب</span>
+      <select id="sortSelect" aria-label="ترتيب العروض">
+        <option value="newest">الأحدث أولاً</option>
+        <option value="deadline">الأقرب انتهاءً</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="offlineBanner" class="offline-banner" hidden>📴 أنت تشاهد عروضاً محفوظة من آخر اتصال — اضغط ↻ عند عودة الإنترنت</div>
+
   <!-- عدّاد النتائج -->
   <div class="status-row">
     <span id="statusText" class="status-text">جارِ تحميل العروض…</span>
-    <span id="refreshBtn" class="refresh-btn" title="تحديث">↻</span>
+    <span id="refreshBtn" class="refresh-btn" title="تحديث" role="button">↻</span>
   </div>
 
   <!-- قائمة العروض -->
@@ -53,8 +70,11 @@
   <div id="detailOverlay" class="detail-overlay" hidden>
     <div class="detail-sheet">
       <div class="detail-head">
-        <button id="detailClose" class="icon-btn" aria-label="إغلاق">✕</button>
-        <button id="detailShare" class="icon-btn" aria-label="مشاركة">↗</button>
+        <button id="detailClose" class="icon-btn" type="button" aria-label="إغلاق">✕</button>
+        <div class="detail-head-actions">
+          <button id="detailFav" class="icon-btn fav-btn" type="button" aria-label="المفضلة" aria-pressed="false">☆</button>
+          <button id="detailShare" class="icon-btn" type="button" aria-label="مشاركة">↗</button>
+        </div>
       </div>
       <div id="detailBody" class="detail-body"></div>
     </div>
