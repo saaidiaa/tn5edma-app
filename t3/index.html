@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أكاديمية الثالثة أساسي — استوديو الحلقات</title>
+<style>
+  :root{
+    --ink:#1e222c; --paper:#faf7f0; --blue:#2463eb; --blue-d:#17419c;
+    --coral:#eb574a; --sun:#ffc72c; --green:#22a860; --teal:#108a8d;
+    --card:#ffffff; --grid:#e9e3d6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    font-family:"Segoe UI", Tahoma, Arial, sans-serif;
+    background:
+      linear-gradient(180deg, rgba(36,99,235,.07), transparent 240px),
+      repeating-linear-gradient(0deg, transparent 0 63px, var(--grid) 63px 64px),
+      repeating-linear-gradient(90deg, transparent 0 63px, var(--grid) 63px 64px),
+      var(--paper);
+    color:var(--ink); min-height:100vh;
+  }
+  header{
+    text-align:center; padding:48px 20px 28px;
+  }
+  .badge{
+    display:inline-block; background:var(--coral); color:#fff; font-weight:800;
+    padding:6px 18px; border-radius:40px; border:3px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink); font-size:.95rem; margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(1.6rem, 4vw, 2.6rem); font-weight:900;
+    background:var(--sun); display:inline-block; padding:10px 34px;
+    border:4px solid var(--ink); border-radius:60px; box-shadow:6px 6px 0 var(--ink);
+  }
+  header p{margin-top:16px; color:var(--blue-d); font-weight:600}
+  main{max-width:1100px; margin:0 auto; padding:20px 20px 80px}
+
+  .ep{
+    background:var(--card); border:4px solid var(--ink); border-radius:28px;
+    box-shadow:8px 8px 0 rgba(30,34,44,.85); margin-bottom:48px; overflow:hidden;
+  }
+  .ep-head{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:20px 24px; border-bottom:3px solid var(--ink);
+    background:linear-gradient(90deg, rgba(255,199,44,.35), transparent);
+  }
+  .ep-num{
+    background:var(--blue); color:#fff; font-weight:900; font-size:1.1rem;
+    padding:8px 16px; border-radius:14px; border:3px solid var(--ink);
+    font-family:Consolas, monospace;
+  }
+  .ep-head h2{font-size:1.25rem; font-weight:800}
+  .ep-head .dur{
+    margin-inline-start:auto; background:var(--teal); color:#fff;
+    padding:5px 14px; border-radius:30px; font-size:.85rem; font-weight:700;
+  }
+  video{width:100%; display:block; background:#000; aspect-ratio:16/9}
+
+  .pub{padding:22px 24px}
+  .tabs{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap}
+  .tab{
+    cursor:pointer; font-weight:800; font-size:.95rem; padding:9px 20px;
+    border:3px solid var(--ink); border-radius:40px; background:#eee;
+    transition:.15s; user-select:none;
+  }
+  .tab.active-yt{background:#ff0033; color:#fff; box-shadow:3px 3px 0 var(--ink)}
+  .tab.active-fb{background:#1877f2; color:#fff; box-shadow:3px 3px 0 var(--ink)}
+  .panel{display:none}
+  .panel.show{display:block}
+  .field{margin-bottom:14px}
+  .field label{
+    display:inline-block; font-weight:800; font-size:.82rem; color:#fff;
+    background:var(--ink); padding:3px 12px; border-radius:20px 20px 0 0;
+    margin-bottom:0;
+  }
+  .field .val{
+    background:#f6f3ea; border:2px solid var(--ink); border-radius:0 12px 12px 12px;
+    padding:12px 14px; font-size:.92rem; line-height:1.8; white-space:pre-wrap;
+    position:relative;
+  }
+  .val.title{font-weight:900; font-size:1.05rem; color:var(--blue-d)}
+  .copy{
+    position:absolute; top:8px; left:8px; cursor:pointer; font-size:.72rem;
+    background:var(--green); color:#fff; border:2px solid var(--ink);
+    border-radius:8px; padding:3px 10px; font-weight:700;
+  }
+  .copy:active{transform:scale(.94)}
+  .chips{display:flex; flex-wrap:wrap; gap:6px}
+  .chip{
+    background:#fff; border:2px solid var(--teal); color:var(--teal);
+    border-radius:20px; padding:3px 12px; font-size:.8rem; font-weight:700;
+  }
+  .meta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+  .meta{
+    background:var(--sun); border:2px solid var(--ink); border-radius:12px;
+    padding:6px 14px; font-size:.8rem; font-weight:800;
+  }
+  .dl{
+    display:inline-block; margin-top:10px; background:var(--blue); color:#fff;
+    text-decoration:none; font-weight:800; padding:9px 22px; border-radius:14px;
+    border:3px solid var(--ink); box-shadow:3px 3px 0 var(--ink); font-size:.9rem;
+  }
+  .dl.srt{background:var(--teal)}
+  .dl.thumb{background:var(--coral)}
+  .dl.short{background:#7c5cd6}
+  .short-preview{margin-top:18px; border-top:2px dashed var(--grid); padding-top:14px}
+  .short-preview summary{cursor:pointer; font-weight:800; color:var(--blue-d)}
+  .vshort{width:min(300px,70vw); aspect-ratio:9/16; margin:14px auto 0; display:block;
+          border:3px solid var(--ink); border-radius:18px; background:#000}
+  footer{text-align:center; padding:30px; color:var(--blue-d); font-weight:600}
+  .brand-kit{
+    background:var(--card); border:4px solid var(--ink); border-radius:28px;
+    box-shadow:8px 8px 0 rgba(30,34,44,.85); margin:0 auto 48px; padding:24px;
+    max-width:1100px;
+  }
+  .brand-kit h2{margin-bottom:16px}
+  .brand-grid{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px}
+  .brand-item{
+    flex:1; min-width:200px; text-align:center; background:#f6f3ea;
+    border:2px solid var(--ink); border-radius:18px; padding:14px;
+  }
+  .brand-item.wide{flex:2.4; min-width:300px}
+  .brand-item img{max-width:100%; max-height:190px; border-radius:12px}
+  .brand-item span{display:block; font-weight:700; font-size:.85rem; margin:10px 0}
+  .cal h3{margin-bottom:10px}
+  .cal table{width:100%; border-collapse:collapse; font-size:.9rem}
+  .cal th,.cal td{border:2px solid var(--ink); padding:9px 12px; text-align:right}
+  .cal th{background:var(--sun); font-weight:800}
+  .cal td:first-child{font-weight:800; background:#f6f3ea}
+  .cal .tip{margin-top:12px; font-size:.85rem; color:var(--blue-d); font-weight:600}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🎬 استوديو القناة</div><br>
+  <h1>أكاديمية الثالثة أساسي</h1>
+  <p>حلقات تعليمية مستوحاة من البرنامج الرسمي للسنة الثالثة أساسي · أرقام لاتينية · صور واقعية · جاهزة للنشر</p>
+</header>
+
+<main>
+  <section class="brand-kit">
+    <h2>🎨 هوية القناة</h2>
+    <div class="brand-grid">
+      <div class="brand-item">
+        <img src="assets/brand/logo.png" alt="اللوغو">
+        <span>اللوغو (صورة القناة)</span>
+        <a class="dl" href="assets/brand/logo.png" download>⬇ تحميل</a>
+      </div>
+      <div class="brand-item wide">
+        <img src="assets/brand/banner_final.jpg" alt="البانر">
+        <span>بانر القناة 2560×1440 (المنطقة الآمنة مضبوطة)</span>
+        <a class="dl" href="assets/brand/banner_final.jpg" download>⬇ تحميل</a>
+      </div>
+    </div>
+    <div class="cal">
+      <h3>📅 رزنامة النشر الأسبوعية</h3>
+      <table>
+        <tr><th>اليوم</th><th>18:00 يوتيوب (النشر الأول)</th><th>19:30 فيسبوك/ريلز (النشر الثاني)</th></tr>
+        <tr><td>الأحد</td><td>حلقة رياضيات / عربية</td><td>نفس الحلقة + Short</td></tr>
+        <tr><td>الأربعاء</td><td>حلقة إيقاظ علمي</td><td>نفس الحلقة + Short</td></tr>
+        <tr><td>الجمعة</td><td>حلقة فرنسية</td><td>Short الأسبوع الأكثر تفاعلاً</td></tr>
+      </table>
+      <p class="tip">💡 قاعدة: الـ Short يخرج على يوتيوب <b>بعد 48 ساعة</b> من الحلقة الكاملة، مع رابط الحلقة في التعليق المثبّت.</p>
+    </div>
+  </section>
+
+  <div id="list"></div>
+</main>
+
+<footer>صُنعت بمحرّك <b>render_t3.py</b> — كل حلقة = ملف JSON واحد ✨</footer>
+
+<script>
+const EPISODES = [
+  {
+    id: "ep1_numbers",
+    num: 1,
+    dur: "1:53",
+    display: "الأعداد ذات 4 و 5 أرقام",
+    yt: {
+      title: "الأعداد من 4 و 5 أرقام حتى 99 999 | رياضيات السنة الثالثة أساسي — الحلقة 1 🔢",
+      desc: `في الحلقة الأولى من سلسلة "أكاديمية الثالثة أساسي" نتعلم قراءة وكتابة الأعداد الكبيرة (من 1 000 إلى 99 999)، تفكيك العدد حسب منازله (الآحاد، العشرات، المئات، الآلاف، عشرات الآلاف)، والمقارنة بين الأعداد — بأمثلة واقعية من حياتنا اليومية: عداد السيارة وجمهور الملعب! ⚽🚗
+
+⏱ محتوى الحلقة:
+00:00 مقدمة الدرس
+00:23 تفكيك العدد 54 872 حسب المنازل
+01:00 المقارنة بين الأعداد (45 000 و 9 800)
+01:27 تمرين الدار + التحدي
+
+📝 تمرين الدار: اكتب بالأرقام «اثنان وسبعون ألفًا وثلاثمائة وخمسة» واكتب الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس حتى تصلك بقية حلقات السلسلة!`,
+      tags: "السنة الثالثة أساسي, رياضيات, الأعداد, تعليم تونس, منازل العدد, أعداد 5 أرقام, تلميذ, مراجعة, primaire tunisie, math 3ème année",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep1_numbers.srt",
+        "قائمة التشغيل: رياضيات — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأحد 18:00 (وقت تونس)",
+        "الصورة المصغرة: لقطة اللوحة + «99 999» بخط ضخم أصفر"
+      ]
+    },
+    fb: {
+      title: "🔢 طفلك في الثالثة أساسي؟ هكذا يتقن الأعداد الكبيرة في دقيقتين!",
+      desc: `درس كامل عن الأعداد ذات 4 و5 أرقام (حتى 99 999) بأمثلة من حياتنا: عداد السيارة 🚗 وجمهور الملعب ⚽
+✅ تفكيك العدد حسب المنازل
+✅ المقارنة بين الأعداد
+📝 تحدي في آخر الفيديو — الجواب في التعليقات!
+تابع صفحتنا حتى لا تفوتك بقية الحلقات 🎓
+#السنة_الثالثة_أساسي #رياضيات #تعليم_تونس #مدرسة #أولياء`,
+      tags: "#السنة_الثالثة_أساسي #رياضيات #تعليم_تونس #تلاميذ #مراجعة #أولياء_الأمور",
+      settings: [
+        "المنصة: فيسبوك (فيديو أفقي) + نسخة للـ Reels لاحقًا",
+        "الجمهور المستهدف: أولياء الأمور في تونس (25–45 سنة)",
+        "أفضل وقت للنشر: الأحد أو الأربعاء 19:00–21:00",
+        "أول تعليق مثبّت: تمرين الدار + رابط قناة اليوتيوب",
+        "دعوة للتفاعل: «شارك المنشور مع وليّ تلميذ في الثالثة أساسي»"
+      ]
+    }
+  },
+  {
+    id: "ep2_operations",
+    num: 2,
+    dur: "1:41",
+    display: "الجمع بالاحتفاظ والطرح بالاستعارة",
+    yt: {
+      title: "الجمع بالاحتفاظ والطرح بالاستعارة بطريقة سهلة | رياضيات السنة الثالثة أساسي — الحلقة 2 ➕➖",
+      desc: `حلقة اليوم من "أكاديمية الثالثة أساسي" في السوق مع عم صالح! 🍅 نتعلم:
+✅ الجمع بالاحتفاظ خطوة بخطوة (3 500 + 2 750)
+✅ الطرح بالاستعارة بدون أخطاء (6 250 − 2 750)
+✅ القاعدة الذهبية: خانة بخانة من اليمين إلى اليسار
+
+⏱ محتوى الحلقة:
+00:00 مسألة السوق + الجمع بالاحتفاظ
+00:40 الطرح بالاستعارة خطوة بخطوة
+01:16 القاعدة الذهبية + تمرين الدار
+
+📝 تمرين الدار: 4 680 + 2 540 = ؟ اكتب الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس — الحلقة القادمة: الهندسة!`,
+      tags: "الجمع بالاحتفاظ, الطرح بالاستعارة, السنة الثالثة أساسي, رياضيات, تعليم تونس, عمليات حسابية, addition, soustraction, math primaire",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep2_operations.srt",
+        "قائمة التشغيل: رياضيات — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأربعاء 18:00 (وقت تونس)",
+        "شاشة النهاية: بطاقة الحلقة 1 + زر اشتراك"
+      ]
+    },
+    fb: {
+      title: "➕ سر «الاحتفاظ» و «الاستعارة» اللي يحيّر التلاميذ — مشروح في دقيقة ونصف!",
+      desc: `أكثر نقطة يغلط فيها تلاميذ الثالثة أساسي: الجمع بالاحتفاظ والطرح بالاستعارة 😅
+في هذا الفيديو نشرحها بمثال من السوق التونسي 🍅 خطوة بخطوة وبأرقام واضحة.
+📝 تحدي: 4 680 + 2 540 = ؟ جاوب في التعليقات!
+شارك الفيديو مع كل وليّ عنده طفل في الابتدائي 🎓
+#السنة_الثالثة_أساسي #رياضيات #الجمع #الطرح #تعليم_تونس`,
+      tags: "#السنة_الثالثة_أساسي #الجمع_بالاحتفاظ #الطرح_بالاستعارة #تعليم_تونس #مدرسة",
+      settings: [
+        "المنصة: فيسبوك (فيديو أفقي) + مقتطف 30 ثانية للـ Reels",
+        "الجمهور: أولياء + معلمو الابتدائي في تونس",
+        "أفضل وقت للنشر: الأربعاء 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة السابقة + رابط اليوتيوب",
+        "فكرة إعلان منخفض التكلفة: استهداف «Parents of primary school children – Tunisia»"
+      ]
+    }
+  },
+  {
+    id: "ep4_multiplication",
+    num: 4,
+    dur: "1:28",
+    display: "جدول الضرب والتمهيد للقسمة",
+    yt: {
+      title: "جدول الضرب بطريقة لن تنساها أبدًا + سر القسمة | رياضيات السنة الثالثة أساسي — الحلقة 4 ✖️",
+      desc: `الضرب هو جمع متكرر — وهذه الحلقة تثبّت الفكرة بصور من الحياة اليومية! 🥚🍞
+✅ كرتونة البيض: 2 x 6 = 12
+✅ كويز الفرّان: 3 x 4 = ? (وقف الفيديو وجاوب!)
+✅ التمهيد للقسمة: 12 : 4 = 3 — القسمة عكس الضرب
+✅ خاصية التبديل: 3 x 4 = 4 x 3
+
+⏱ محتوى الحلقة:
+00:00 الضرب = جمع متكرر (كرتونة البيض)
+00:29 كويز الفرّان — وقّف الفيديو وجاوب!
+00:58 التمهيد للقسمة (توزيع البرتقال)
+
+📝 تمرين الدار: 5 x 6 = ? و 15 : 3 = ? — اكتب الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس حتى تصلك بقية الحلقات!`,
+      tags: "جدول الضرب, القسمة, السنة الثالثة أساسي, رياضيات, تعليم تونس, الضرب, multiplication, division, math primaire tunisie",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep4_multiplication.srt",
+        "قائمة التشغيل: رياضيات — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأحد 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep4_multiplication.jpg"
+      ]
+    },
+    fb: {
+      title: "✖️ «3 x 4 قداش؟» — الكويز اللي يخلي طفلك يحب جدول الضرب!",
+      desc: `الضرب موش حفظ أعمى — هو جمع متكرر نشوفوه في كرتونة البيض 🥚 وعند الفرّان 🍞
+في الفيديو: كويز تفاعلي «وقّف وجاوب» + سر العلاقة بين الضرب والقسمة.
+📝 تحدي: 5 x 6 = ? و 15 : 3 = ? — جاوب في التعليقات!
+#جدول_الضرب #السنة_الثالثة_أساسي #رياضيات #تعليم_تونس`,
+      tags: "#جدول_الضرب #القسمة #السنة_الثالثة_أساسي #رياضيات #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep4_multiplication_short.mp4",
+        "الجمهور: أولياء الأمور في تونس (25–45 سنة)",
+        "أفضل وقت للنشر: الأحد 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 3 + رابط اليوتيوب",
+        "الـ Short = مشهد كويز الفرّان — مثالي للـ Reels"
+      ]
+    }
+  },
+  {
+    id: "ep5_respiration",
+    num: 5,
+    dur: "1:35",
+    display: "التنفس والدوران ومخاطر التلوث",
+    yt: {
+      title: "رحلة الهواء داخل جسمك: التنفس والدوران | إيقاظ علمي السنة الثالثة أساسي — الحلقة 5 🫁",
+      desc: `أول حلقة إيقاظ علمي في السلسلة! نكتشف عجائب جسم الإنسان:
+✅ التنفس: شهيق وزفير — 16 مرة في الدقيقة
+✅ القلب: مضخة عجيبة تخفق 90 مرة في الدقيقة
+✅ الدوران: كيف يوزّع الدم الأكسجين على كامل الجسم
+✅ مخاطر التلوث على الجهاز التنفسي + كيف نحمي رئتينا
+
+⏱ محتوى الحلقة:
+00:00 التنفس — شهيق وزفير
+00:31 القلب والدوران
+01:03 كويز التلوث + نصائح حماية الرئتين
+
+📝 تمرين الدار: قلبك يخفق 90 خفقة في الدقيقة — احسب عدد الخفقات في 5 دقائق! الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس — القادم: الدارة الكهربائية!`,
+      tags: "التنفس, الدوران, القلب, إيقاظ علمي, السنة الثالثة أساسي, التلوث, جسم الإنسان, تعليم تونس, sciences, respiration",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep5_respiration.srt",
+        "قائمة التشغيل: إيقاظ علمي — السنة الثالثة أساسي (قائمة جديدة!)",
+        "الظهور: مجدول — الأربعاء 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep5_respiration.jpg"
+      ]
+    },
+    fb: {
+      title: "🫁 قلب طفلك يخفق 90 مرة في الدقيقة — هل يعرف علاش؟",
+      desc: `حلقة إيقاظ علمي ممتعة: رحلة الهواء من الأنف للرئتين، والقلب اللي يخدم ليل نهار بلا راحة ❤️
++ كويز عن التلوث ونصائح ذهبية لحماية الجهاز التنفسي 🌳
+📝 تحدي حسابي: 90 خفقة x 5 دقائق = ? جاوب في التعليقات!
+#إيقاظ_علمي #السنة_الثالثة_أساسي #صحة_الطفل #تعليم_تونس`,
+      tags: "#إيقاظ_علمي #التنفس #القلب #التلوث #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep5_respiration_short.mp4",
+        "الجمهور: أولياء + معلمون + مهتمون بصحة الطفل",
+        "أفضل وقت للنشر: الأربعاء 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 4 + رابط اليوتيوب",
+        "الـ Short = كويز التلوث — موضوع يشد الأولياء"
+      ]
+    }
+  },
+  {
+    id: "ep6_circuit",
+    num: 6,
+    dur: "1:26",
+    display: "الدارة الكهربائية البسيطة",
+    yt: {
+      title: "اصنع دارة كهربائية بنفسك: بطارية + مصباح + سلكان! | إيقاظ علمي السنة الثالثة أساسي — الحلقة 6 💡",
+      desc: `من وين يجي الضو؟ 💡 في هذه الحلقة نصنع دارة كهربائية حقيقية خطوة بخطوة:
+✅ مكونات الدارة: بطارية 4.5 V + سلكان + قاطعة + مصباح
+✅ دارة مغلقة = المصباح يشعل · دارة مفتوحة = يطفى
+✅ كويز: شنوة يصير كي نحلو القاطعة؟
+⚠️ قاعدة السلامة: التجارب بالبطاريات الصغيرة فقط — كهرباء الدار خطيرة!
+
+⏱ محتوى الحلقة:
+00:00 من وين يجي الضو؟
+00:26 نركّب الدارة خطوة بخطوة
+01:02 كويز + قواعد السلامة
+
+📝 تمرين الدار: ارسم دارة فيها بطارية ومصباحان — وصوّر رسمتك في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس حتى تصلك الحلقات القادمة!`,
+      tags: "الدارة الكهربائية, الكهرباء, إيقاظ علمي, السنة الثالثة أساسي, تجارب علمية للأطفال, بطارية, مصباح, تعليم تونس, circuit électrique",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep6_circuit.srt",
+        "قائمة التشغيل: إيقاظ علمي — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأحد 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep6_circuit.jpg"
+      ]
+    },
+    fb: {
+      title: "💡 تجربة منزلية آمنة: طفلك يشعل مصباح ببطارية وسلكين!",
+      desc: `أجمل درس إيقاظ علمي: الدارة الكهربائية البسيطة ⚡
+تجربة حقيقية بمكونات بسيطة (بطارية 4.5V + مصباح + سلكان) يقدر طفلك يعملها في الدار بأمان تام.
+⚠️ مع قواعد السلامة: بعيد عن كهرباء الدار!
+📝 تحدي: ارسم دارة فيها مصباحان وشاركها في التعليقات!
+#الدارة_الكهربائية #إيقاظ_علمي #تجارب_علمية #السنة_الثالثة_أساسي #تعليم_تونس`,
+      tags: "#الدارة_الكهربائية #الكهرباء #تجارب_للأطفال #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep6_circuit_short.mp4",
+        "الجمهور: أولياء + معلمون + صفحات الأنشطة العلمية",
+        "أفضل وقت للنشر: الجمعة 18:00–20:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 5 + رابط اليوتيوب",
+        "الـ Short = تركيب الدارة — محتوى «تجربة» ينتشر بسرعة"
+      ]
+    }
+  },
+  {
+    id: "ep7_matter",
+    num: 7,
+    dur: "1:33",
+    display: "حالات المادة وتحولاتها",
+    yt: {
+      title: "سر الماء العجيب: صلب، سائل، غازي! حالات المادة وتحولاتها | إيقاظ علمي الثالثة أساسي — الحلقة 7 🧊",
+      desc: `نفس المادة… ثلاث حالات! في هذه الحلقة نكتشف أسرار المادة بتجارب من مطبخنا:
+✅ الحالات الثلاث: صلبة (الجليد) · سائلة (الماء) · غازية (البخار)
+✅ الانصهار: الجليد يذوب عند 0 °C
+✅ التبخر: الماء يغلي عند 100 °C
+✅ التجمد والتكاثف — الدورة الكاملة!
+
+⏱ محتوى الحلقة:
+00:00 جينيريك + الحالات الثلاث للمادة
+00:34 الانصهار والتجمد (تجربة الجليد)
+01:02 كويز الغليان + التكاثف
+
+📝 تمرين الدار: وين نشوفو التكاثف في الدار؟ (تلميح: المرآة بعد الدوش!) الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس حتى تصلك بقية حلقات الإيقاظ العلمي!`,
+      tags: "حالات المادة, الانصهار, التبخر, التكاثف, إيقاظ علمي, السنة الثالثة أساسي, تجارب علمية, تعليم تونس, états de la matière, sciences",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep7_matter.srt",
+        "قائمة التشغيل: إيقاظ علمي — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأربعاء 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep7_matter.jpg"
+      ]
+    },
+    fb: {
+      title: "🧊 الجليد يذوب عند 0° والماء يغلي عند 100° — لكن هل يعرف طفلك «علاش»؟",
+      desc: `درس إيقاظ علمي ممتع بتجارب من المطبخ: حالات المادة الثلاث وتحولاتها 💧
+الانصهار، التجمد، التبخر، والتكاثف — بصور واقعية وأمثلة يعيشها الطفل كل يوم.
+📝 تحدي: وين نشوفو التكاثف في الدار؟ جاوب في التعليقات!
+#إيقاظ_علمي #حالات_المادة #السنة_الثالثة_أساسي #تجارب_علمية #تعليم_تونس`,
+      tags: "#حالات_المادة #الانصهار #التبخر #إيقاظ_علمي #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep7_matter_short.mp4",
+        "الجمهور: أولياء + معلمون + صفحات الأنشطة العلمية",
+        "أفضل وقت للنشر: الأربعاء 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 6 + رابط اليوتيوب",
+        "الـ Short = كويز الغليان 100 °C — سؤال يثير الفضول"
+      ]
+    }
+  },
+  {
+    id: "ep8_grammar",
+    num: 8,
+    dur: "1:37",
+    display: "الجملة الفعلية والجملة الاسمية",
+    yt: {
+      title: "الفرق بين الجملة الفعلية والاسمية في دقيقة ونصف! | لغة عربية السنة الثالثة أساسي — الحلقة 8 ✏️",
+      desc: `أول حلقة لغة عربية في السلسلة! قاعدة بسيطة تفتح باب القواعد كله:
+✅ الجملة الفعلية: تبدأ بفعل — «يلعب سامي بالكرة» (فعل + فاعل + مكمل)
+✅ الجملة الاسمية: تبدأ باسم — «الكتاب ممتع» (مبتدأ + خبر)
+✅ السر الذهبي: انظر لأول كلمة فقط!
+✅ كويز: «ينجح المجتهد» — فعلية أم اسمية؟
+
+⏱ محتوى الحلقة:
+00:00 جينيريك + الجملة الفعلية
+00:36 الجملة الاسمية (مبتدأ + خبر)
+01:08 كويز + تمرين الدار
+
+📝 تمرين الدار: اكتب جملتين عن المدرسة — واحدة فعلية وواحدة اسمية — في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس — القادم: أول درس فرنسية!`,
+      tags: "الجملة الفعلية, الجملة الاسمية, قواعد اللغة العربية, السنة الثالثة أساسي, نحو, مبتدأ وخبر, فعل وفاعل, تعليم تونس, لغة عربية",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep8_grammar.srt",
+        "قائمة التشغيل: لغة عربية — السنة الثالثة أساسي (قائمة جديدة!)",
+        "الظهور: مجدول — الأحد 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep8_grammar.jpg"
+      ]
+    },
+    fb: {
+      title: "✏️ «يلعب سامي» و «الكتاب ممتع» — قاعدة وحيدة تفرق بينهما، طفلك يعرفها؟",
+      desc: `أبسط شرح للجملة الفعلية والجملة الاسمية 📚
+السر كله في أول كلمة: فعل ➜ جملة فعلية، اسم ➜ جملة اسمية!
+مع كويز تفاعلي «وقّف الفيديو وجاوب» 🎯
+📝 تحدي: اكتب جملة فعلية وجملة اسمية عن المدرسة في التعليقات!
+#لغة_عربية #قواعد #الجملة_الفعلية #السنة_الثالثة_أساسي #تعليم_تونس`,
+      tags: "#لغة_عربية #الجملة_الفعلية #الجملة_الاسمية #قواعد #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep8_grammar_short.mp4",
+        "الجمهور: أولياء + معلمو اللغة العربية",
+        "أفضل وقت للنشر: الأحد 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 7 + رابط اليوتيوب",
+        "الـ Short = كويز «ينجح المجتهد» — تفاعل مضمون من الأولياء"
+      ]
+    }
+  },
+  {
+    id: "ep9_french",
+    num: 9,
+    dur: "1:30",
+    display: "Les sons et les lettres — تأسيس الفرنسية",
+    yt: {
+      title: "Les sons et les lettres : أول درس فرنسية لطفلك بصوت فرنسي أصلي! | 3e année — الحلقة 9 🇫🇷",
+      desc: `Première leçon de français ! أول حلقة فرنسية في السلسلة — بصوت معلمة فرنسية مميز:
+✅ L'alphabet : A comme Avion, B comme Ballon, C comme Cadeau
+✅ Ma première phrase : Lina mange une pomme
+✅ La règle d'or : Sujet + Verbe + Complément (S+V+C)
+✅ Petit quiz : B comme… ?
+
+⏱ محتوى الحلقة:
+00:00 Générique + L'alphabet et les sons
+00:34 Ma première phrase (S+V+C)
+01:04 Petit quiz + devoir à la maison
+
+📝 Devoir : trouvez 3 mots qui commencent par la lettre A — dans les commentaires 👇
+
+🔔 Abonnez-vous ! اشترك حتى تصلك بقية دروس الفرنسية!`,
+      tags: "français 3ème année, les sons et les lettres, alphabet français, تأسيس الفرنسية, السنة الثالثة أساسي, فرنسية للأطفال, sujet verbe complément, apprendre le français, تعليم تونس",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: الفرنسية · الترجمة: ep9_french.srt",
+        "قائمة التشغيل: Français — السنة الثالثة أساسي (قائمة جديدة!)",
+        "الظهور: مجدول — الجمعة 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep9_french.jpg"
+      ]
+    },
+    fb: {
+      title: "🇫🇷 A comme Avion! أول درس فرنسية لطفلك — بصوت معلمة فرنسية حقيقية",
+      desc: `مرحلة التأسيس في الفرنسية تبدأ من هنا! 🎓
+Les sons et les lettres + أول جملة كاملة: Sujet + Verbe + Complément
+بصوت فرنسي أصلي ونطق سليم من أول يوم ✨
+📝 Défi : 3 mots qui commencent par A — في التعليقات!
+#français #تأسيس_الفرنسية #السنة_الثالثة_أساسي #تعليم_تونس #فرنسية_للأطفال`,
+      tags: "#français #الفرنسية #تأسيس #alphabet #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep9_french_short.mp4",
+        "الجمهور: أولياء يهتمون بالفرنسية المبكرة (شريحة كبيرة في تونس!)",
+        "أفضل وقت للنشر: الجمعة 18:00–20:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 8 + رابط اليوتيوب",
+        "الـ Short = A comme Avion — النطق الفرنسي يجذب المتابعين"
+      ]
+    }
+  },
+  {
+    id: "ep3_geometry",
+    num: 3,
+    dur: "1:36",
+    display: "التوازي والتعامد ومحيط المستطيل",
+    yt: {
+      title: "التوازي والتعامد ومحيط المستطيل بأمثلة من الواقع | هندسة السنة الثالثة أساسي — الحلقة 3 📐",
+      desc: `حلقة الهندسة من "أكاديمية الثالثة أساسي"! نكتشف الهندسة في كل مكان حولنا:
+✅ التوازي: سكة القطار 🚂 — مستقيمان لا يلتقيان أبدًا
+✅ التعامد: شباك سيدي بوسعيد 🪟 — الزاوية القائمة والكوس
+✅ محيط المستطيل: جنان عم أحمد 🌱 — P = 2 × (12 + 8) = 40 m
+
+⏱ محتوى الحلقة:
+00:00 التوازي — سكة القطار
+00:31 التعامد والزاوية القائمة — الرسم بالمسطرة والكوس
+01:03 حساب محيط المستطيل + تمرين الدار
+
+📝 تمرين الدار: احسب محيط مستطيل طوله 15 m وعرضه 10 m — الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس حتى تصلك الحلقات القادمة!`,
+      tags: "التوازي, التعامد, محيط المستطيل, هندسة, السنة الثالثة أساسي, رياضيات تونس, الزاوية القائمة, الكوس, géométrie, périmètre",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep3_geometry.srt",
+        "قائمة التشغيل: رياضيات — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأحد 18:00 (وقت تونس)",
+        "الصورة المصغرة: صورة السكة + «//» و «⊥» بخط ضخم"
+      ]
+    },
+    fb: {
+      title: "📐 الهندسة موجودة في كل مكان: من سكة القطار إلى شباك سيدي بوسعيد!",
+      desc: `درس هندسة ممتع لتلاميذ الثالثة أساسي 🎓
+🚂 التوازي في سكة القطار
+🪟 التعامد في شبابيك سيدي بوسعيد
+🌱 محيط المستطيل في جنان عم أحمد
+📝 تحدي: محيط مستطيل 15m × 10m = ؟ جاوب في التعليقات!
+#هندسة #السنة_الثالثة_أساسي #تعليم_تونس #سيدي_بوسعيد #رياضيات`,
+      tags: "#هندسة #التوازي #التعامد #محيط_المستطيل #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (فيديو أفقي) + مقتطف «سكة القطار» للـ Reels",
+        "الجمهور: أولياء + معلمون + محبو المحتوى التونسي",
+        "أفضل وقت للنشر: الجمعة 18:00–20:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 2 + رابط قائمة التشغيل",
+        "لقطة سيدي بوسعيد تجذب الجمهور التونسي — استغلها في الغلاف"
+      ]
+    }
+  }
+];
+
+function fieldHTML(label, value, cls="") {
+  const esc = value.replace(/</g,"&lt;");
+  return `<div class="field"><label>${label}</label>
+    <div class="val ${cls}"><button class="copy" onclick="cp(this)">📋 نسخ</button>${esc}</div></div>`;
+}
+function listHTML(label, items) {
+  return `<div class="field"><label>${label}</label>
+    <div class="val">${items.map(i=>"• "+i).join("\n")}</div></div>`;
+}
+function cp(btn){
+  const txt = btn.parentElement.innerText.replace("📋 نسخ","").trim();
+  navigator.clipboard.writeText(txt).then(()=>{ btn.textContent="✅ تم"; setTimeout(()=>btn.textContent="📋 نسخ",1200); });
+}
+function switchTab(epId, which){
+  document.getElementById(epId+"-yt-tab").className = "tab" + (which==="yt" ? " active-yt" : "");
+  document.getElementById(epId+"-fb-tab").className = "tab" + (which==="fb" ? " active-fb" : "");
+  document.getElementById(epId+"-yt").className = "panel" + (which==="yt" ? " show" : "");
+  document.getElementById(epId+"-fb").className = "panel" + (which==="fb" ? " show" : "");
+}
+
+EPISODES.sort((a,b)=>a.num-b.num);
+const THUMBS = { ep1_numbers:1, ep2_operations:1, ep3_geometry:1,
+                 ep4_multiplication:1, ep5_respiration:1, ep6_circuit:1,
+                 ep7_matter:1, ep8_grammar:1, ep9_french:1 };
+const SHORTS = { ep1_numbers:1, ep2_operations:1, ep3_geometry:1,
+                 ep4_multiplication:1, ep5_respiration:1, ep6_circuit:1,
+                 ep7_matter:1, ep8_grammar:1, ep9_french:1 };
+document.getElementById("list").innerHTML = EPISODES.map(e => `
+  <section class="ep">
+    <div class="ep-head">
+      <span class="ep-num">EP ${e.num}</span>
+      <h2>${e.display}</h2>
+      <span class="dur">⏱ ${e.dur}</span>
+    </div>
+    <video controls preload="metadata" src="out/${e.id}.mp4"></video>
+    <div class="pub">
+      <div class="tabs">
+        <span id="${e.id}-yt-tab" class="tab active-yt" onclick="switchTab('${e.id}','yt')">▶ YouTube — النشر الأول</span>
+        <span id="${e.id}-fb-tab" class="tab" onclick="switchTab('${e.id}','fb')">📘 Facebook / Reels — النشر الثاني</span>
+      </div>
+      <div id="${e.id}-yt" class="panel show">
+        ${fieldHTML("العنوان الاحترافي", e.yt.title, "title")}
+        ${fieldHTML("الوصف", e.yt.desc)}
+        ${fieldHTML("الكلمات المفتاحية (Tags)", e.yt.tags)}
+        ${listHTML("إعدادات الرفع", e.yt.settings)}
+        <a class="dl" href="out/${e.id}.mp4" download>⬇ تحميل الفيديو MP4</a>
+        <a class="dl srt" href="out/${e.id}.srt" download>⬇ ملف الترجمة SRT</a>
+        ${THUMBS[e.id] ? `<a class="dl thumb" href="out/thumbs/${e.id}.jpg" download>🖼 الصورة المصغرة</a>` : ""}
+      </div>
+      <div id="${e.id}-fb" class="panel">
+        ${fieldHTML("عنوان المنشور", e.fb.title, "title")}
+        ${fieldHTML("نص المنشور", e.fb.desc)}
+        ${fieldHTML("الهاشتاغات", e.fb.tags)}
+        ${listHTML("إعدادات النشر", e.fb.settings)}
+        <a class="dl" href="out/${e.id}.mp4" download>⬇ تحميل الفيديو MP4</a>
+        ${SHORTS[e.id] ? `<a class="dl short" href="out/shorts/${e.id}_short.mp4" download>📱 نسخة Short عمودية</a>` : ""}
+      </div>
+      ${SHORTS[e.id] ? `
+      <details class="short-preview">
+        <summary>📱 معاينة الـ Short العمودي (Shorts / Reels / TikTok)</summary>
+        <video controls preload="none" class="vshort" src="out/shorts/${e.id}_short.mp4"></video>
+      </details>` : ""}
+    </div>
+  </section>
+`).join("");
+</script>
+</body>
+</html>

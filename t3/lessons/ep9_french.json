@@ -1,0 +1,46 @@
+{
+  "title": "Les sons et les lettres",
+  "episode": "9",
+  "brand": "Académie 3e année · Français",
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "scenes": [
+    {
+      "audio": "audio/ep9_s1.mp3",
+      "image": "assets/img/ep9_letters.jpg",
+      "caption": "A · B · C",
+      "board_title": "L'alphabet",
+      "lines": [
+        { "text": "A comme Avion", "style": "eq" },
+        { "text": "B comme Ballon", "style": "op" },
+        { "text": "C comme Cadeau", "style": "answer" }
+      ],
+      "narration": "Bonjour les enfants! Bienvenue dans notre première leçon de français! Aujourd'hui, nous découvrons les lettres et les sons. Écoutez bien et répétez après moi: A, comme avion! B, comme ballon! C, comme cadeau! Bravo! Chaque lettre a un son. Quand on connaît les sons, on peut lire tous les mots!"
+    },
+    {
+      "audio": "audio/ep9_s2.mp3",
+      "image": "assets/img/ep9_apple.jpg",
+      "caption": "Une phrase simple : S + V + C",
+      "board_title": "Ma première phrase",
+      "lines": [
+        { "text": "Lina mange une pomme", "style": "eq" },
+        { "text": "Sujet + Verbe + Complément", "style": "op" },
+        { "text": "1 + 2 + 3 = une phrase!", "style": "small" }
+      ],
+      "narration": "Maintenant, construisons une phrase! Regardez la photo: Lina mange une pomme. C'est une phrase simple avec trois parties. Un: le sujet, Lina, c'est la personne qui fait l'action. Deux: le verbe, mange, c'est l'action. Trois: le complément, une pomme. Sujet, verbe, complément! Répétez avec moi: Lina, mange, une pomme. Très bien!"
+    },
+    {
+      "audio": "audio/ep9_s3.mp3",
+      "image": "assets/img/ep9_objects.jpg",
+      "caption": "À vous de jouer!",
+      "board_title": "Petit quiz!",
+      "lines": [
+        { "text": "B comme ... ?", "style": "ask" },
+        { "text": "Ballon!", "style": "answer", "reveal_at": 0.45 }
+      ],
+      "confetti": true,
+      "narration": "Et maintenant, un petit quiz! Regardez les objets sur la table. B comme...? Arrêtez la vidéo et répondez... Oui! B comme ballon! Bravo les enfants! Votre devoir à la maison: trouvez trois mots qui commencent par la lettre A, et écrivez-les dans les commentaires. Abonnez-vous à la chaîne, et à bientôt pour une nouvelle leçon de français!"
+    }
+  ]
+}

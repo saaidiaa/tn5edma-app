@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:01,880
+Bonjour les enfants!
+
+2
+00:00:01,880 --> 00:00:06,391
+Bienvenue dans notre première leçon de français!
+
+3
+00:00:06,391 --> 00:00:11,372
+Aujourd'hui, nous découvrons les lettres et les sons.
+
+4
+00:00:11,372 --> 00:00:16,072
+Écoutez bien et répétez après moi: A, comme avion!
+
+5
+00:00:16,072 --> 00:00:17,575
+B, comme ballon!
+
+6
+00:00:17,575 --> 00:00:19,079
+C, comme cadeau!
+
+7
+00:00:19,079 --> 00:00:19,643
+Bravo!
+
+8
+00:00:19,643 --> 00:00:21,805
+Chaque lettre a un son.
+
+9
+00:00:21,805 --> 00:00:26,880
+Quand on connaît les sons, on peut lire tous les mots!
+
