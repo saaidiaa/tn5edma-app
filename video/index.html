@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معاينة الفيديو — المعادلات بالكرتون</title>
+<style>
+  :root{ --ink:#20242e; --teal:#179194; --sun:#ffc53d; --paper:#fdf8ec; }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;
+       justify-content:center;gap:18px;padding:24px;
+       background:radial-gradient(circle at 50% 0%,#2a3446,#151a24 70%);
+       color:#fff;font-family:system-ui,"Segoe UI",Tahoma,sans-serif}
+  h1{margin:0;font-size:22px;font-weight:800}
+  .sub{margin:0;opacity:.7;font-size:14px}
+  .phone{position:relative;padding:14px;border-radius:38px;background:#0d1017;
+         border:2px solid #333c4d;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+  video{display:block;width:min(360px,86vw);aspect-ratio:9/16;border-radius:26px;background:#000}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .chip{background:#222a38;border:1px solid #384358;border-radius:999px;
+        padding:6px 14px;font-size:13px;opacity:.9}
+  a.dl{color:var(--sun);text-decoration:none;font-weight:700;font-size:14px}
+  a.dl:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+  <h1>🎬 حلّ معادلة من الدرجة الأولى</h1>
+  <p class="sub">معاينة عمودية — كيما باش تبان في Reels / TikTok / Shorts</p>
+
+  <div class="phone">
+    <video src="out/video.mp4" controls autoplay muted playsinline loop></video>
+  </div>
+
+  <div class="meta">
+    <span class="chip">1080 × 1920</span>
+    <span class="chip">30 fps</span>
+    <span class="chip">≈ 53 ثانية</span>
+    <span class="chip">صوت عربي</span>
+  </div>
+  <a class="dl" href="out/video.mp4" download>⬇ تحميل الفيديو (MP4)</a>
+  <p class="sub">الصوت مكتوم في البداية — إضغط 🔊 على المشغّل باش تسمع التعليق.</p>
+</body>
+</html>
