@@ -1,0 +1,59 @@
+{
+  "title": "حلّ معادلة من الدرجة الأولى",
+  "brand": "Tn5edma · رياضيات",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "scenes": [
+    {
+      "audio": "audio/s1.mp3",
+      "mascot": "think",
+      "caption": "معادلة بسيطة… شنوّة قيمة x؟",
+      "board_title": "المعادلة",
+      "lines": [
+        { "text": "2x + 3 = 11", "style": "eq" },
+        { "text": "x = ?", "style": "ask" }
+      ]
+    },
+    {
+      "audio": "audio/s2.mp3",
+      "mascot": "explain",
+      "caption": "الخطوة 1 : نطرحو 3 من الجهتين",
+      "board_title": "الخطوة 1",
+      "lines": [
+        { "text": "2x + 3 = 11", "style": "eq" },
+        { "text": "- 3        - 3", "style": "op" }
+      ]
+    },
+    {
+      "audio": "audio/s3.mp3",
+      "mascot": "explain",
+      "caption": "11 − 3 = 8",
+      "board_title": "الخطوة 2",
+      "lines": [
+        { "text": "2x = 8", "style": "eq" }
+      ]
+    },
+    {
+      "audio": "audio/s4.mp3",
+      "mascot": "explain",
+      "caption": "نقسمو الجهتين على 2",
+      "board_title": "الخطوة 3",
+      "lines": [
+        { "text": "2x / 2 = 8 / 2", "style": "op" },
+        { "text": "x = 4", "style": "answer" }
+      ]
+    },
+    {
+      "audio": "audio/s5.mp3",
+      "mascot": "happy",
+      "caption": "نتثبّتو : 2×4 + 3 = 11 ✔",
+      "board_title": "التثبّت",
+      "lines": [
+        { "text": "2(4) + 3 = 11", "style": "eq" },
+        { "text": "x = 4", "style": "answer" }
+      ],
+      "confetti": true
+    }
+  ]
+}
