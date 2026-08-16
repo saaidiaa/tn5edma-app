@@ -1,0 +1,67 @@
+{
+  "title": "نتعلّموا الأشكال",
+  "brand": "نونو البومة · تعلّم ولعب",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "theme": "meadow",
+  "scenes": [
+    {
+      "type": "intro",
+      "audio": "audio/sh0.mp3",
+      "owl": "hello",
+      "caption": "أهلاً! أنا نونو",
+      "big": "الأشكال"
+    },
+    {
+      "type": "shape",
+      "audio": "audio/sh1.mp3",
+      "owl": "ask",
+      "caption": "الدائرة مدوّرة كيف الشمس",
+      "shape": "circle",
+      "word": "دائرة"
+    },
+    {
+      "type": "shape",
+      "audio": "audio/sh2.mp3",
+      "owl": "ask",
+      "caption": "المربّع عندو 4 أضلاع",
+      "shape": "square",
+      "word": "مربّع"
+    },
+    {
+      "type": "shape",
+      "audio": "audio/sh3.mp3",
+      "owl": "ask",
+      "caption": "المثلّث عندو 3 أضلاع",
+      "shape": "triangle",
+      "word": "مثلّث"
+    },
+    {
+      "type": "shape",
+      "audio": "audio/sh4.mp3",
+      "owl": "ask",
+      "caption": "النجمة تلمع في السماء",
+      "shape": "star",
+      "word": "نجمة"
+    },
+    {
+      "type": "quiz",
+      "audio": "audio/sh5.mp3",
+      "owl": "ask",
+      "caption": "قدّاش من نجمة؟",
+      "emoji": "star",
+      "n": 4,
+      "answer": "٤",
+      "reveal_at": 0.6
+    },
+    {
+      "type": "outro",
+      "audio": "audio/sh6.mp3",
+      "owl": "happy",
+      "caption": "برافو عليكم!",
+      "big": "برافو!",
+      "confetti": true
+    }
+  ]
+}
