@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أكاديمية الثالثة أساسي — استوديو الحلقات</title>
+<title>برافو أكاديمي · Bravo Academy — استوديو الحلقات</title>
 <style>
   :root{
     --ink:#1e222c; --paper:#faf7f0; --blue:#2463eb; --blue-d:#17419c;
@@ -115,6 +115,11 @@
     max-width:1100px;
   }
   .brand-kit h2{margin-bottom:16px}
+  .brand-id{display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center;
+    background:#eef4ff; border:2px dashed #1f4e8c; border-radius:14px;
+    padding:12px 16px; margin-bottom:20px; font-size:.9rem}
+  .brand-id b{color:#1f4e8c}
+  .brand-id a{color:#1f4e8c; font-weight:700}
   .brand-grid{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px}
   .brand-item{
     flex:1; min-width:200px; text-align:center; background:#f6f3ea;
@@ -134,25 +139,31 @@
 <body>
 
 <header>
-  <div class="badge">🎬 استوديو القناة</div><br>
-  <h1>أكاديمية الثالثة أساسي</h1>
-  <p>حلقات تعليمية مستوحاة من البرنامج الرسمي للسنة الثالثة أساسي · أرقام لاتينية · صور واقعية · جاهزة للنشر</p>
+  <div class="badge">🎬 استوديو القناة · @BravoAcademyTN</div><br>
+  <h1>برافو أكاديمي · Bravo Academy</h1>
+  <p>قناة تعليمية للسنة الثالثة أساسي · 🇹🇳 تونس · مصنوعة للأطفال ✅ · رياضيات · إيقاظ علمي · عربية · فرنسية</p>
 </header>
 
 <main>
   <section class="brand-kit">
-    <h2>🎨 هوية القناة</h2>
+    <h2>🎨 هوية القناة — برافو أكاديمي · Bravo Academy</h2>
     <div class="brand-grid">
       <div class="brand-item">
-        <img src="assets/brand/logo.png" alt="اللوغو">
-        <span>اللوغو (صورة القناة)</span>
-        <a class="dl" href="assets/brand/logo.png" download>⬇ تحميل</a>
+        <img src="assets/brand/logo_bravo.png" alt="لوغو برافو أكاديمي">
+        <span>اللوغو (صورة القناة) — برافو أكاديمي</span>
+        <a class="dl" href="assets/brand/logo_bravo.png" download>⬇ تحميل</a>
       </div>
       <div class="brand-item wide">
-        <img src="assets/brand/banner_final.jpg" alt="البانر">
-        <span>بانر القناة 2560×1440 (المنطقة الآمنة مضبوطة)</span>
-        <a class="dl" href="assets/brand/banner_final.jpg" download>⬇ تحميل</a>
+        <img src="assets/brand/banner_bravo.jpg" alt="غلاف برافو أكاديمي">
+        <span>غلاف القناة 2560×1440 (المنطقة الآمنة مضبوطة)</span>
+        <a class="dl" href="assets/brand/banner_bravo.jpg" download>⬇ تحميل</a>
       </div>
+    </div>
+    <div class="brand-id">
+      <span><b>الاسم:</b> برافو أكاديمي – Bravo Academy</span>
+      <span><b>المعرف:</b> @BravoAcademyTN</span>
+      <span>🇹🇳 تونس · <b>مصنوع للأطفال:</b> ✅</span>
+      <span><b>الإعدادات الكاملة:</b> <a href="../CHANNEL.md" target="_blank">📄 CHANNEL.md</a></span>
     </div>
     <div class="cal">
       <h3>📅 رزنامة النشر الأسبوعية</h3>
@@ -180,7 +191,7 @@ const EPISODES = [
     display: "الأعداد ذات 4 و 5 أرقام",
     yt: {
       title: "الأعداد من 4 و 5 أرقام حتى 99 999 | رياضيات السنة الثالثة أساسي — الحلقة 1 🔢",
-      desc: `في الحلقة الأولى من سلسلة "أكاديمية الثالثة أساسي" نتعلم قراءة وكتابة الأعداد الكبيرة (من 1 000 إلى 99 999)، تفكيك العدد حسب منازله (الآحاد، العشرات، المئات، الآلاف، عشرات الآلاف)، والمقارنة بين الأعداد — بأمثلة واقعية من حياتنا اليومية: عداد السيارة وجمهور الملعب! ⚽🚗
+      desc: `في الحلقة الأولى من سلسلة "برافو أكاديمي" نتعلم قراءة وكتابة الأعداد الكبيرة (من 1 000 إلى 99 999)، تفكيك العدد حسب منازله (الآحاد، العشرات، المئات، الآلاف، عشرات الآلاف)، والمقارنة بين الأعداد — بأمثلة واقعية من حياتنا اليومية: عداد السيارة وجمهور الملعب! ⚽🚗
 
 ⏱ محتوى الحلقة:
 00:00 مقدمة الدرس
@@ -226,7 +237,7 @@ const EPISODES = [
     display: "الجمع بالاحتفاظ والطرح بالاستعارة",
     yt: {
       title: "الجمع بالاحتفاظ والطرح بالاستعارة بطريقة سهلة | رياضيات السنة الثالثة أساسي — الحلقة 2 ➕➖",
-      desc: `حلقة اليوم من "أكاديمية الثالثة أساسي" في السوق مع عم صالح! 🍅 نتعلم:
+      desc: `حلقة اليوم من "برافو أكاديمي" في السوق مع عم صالح! 🍅 نتعلم:
 ✅ الجمع بالاحتفاظ خطوة بخطوة (3 500 + 2 750)
 ✅ الطرح بالاستعارة بدون أخطاء (6 250 − 2 750)
 ✅ القاعدة الذهبية: خانة بخانة من اليمين إلى اليسار
@@ -558,7 +569,7 @@ Les sons et les lettres + أول جملة كاملة: Sujet + Verbe + Complémen
     display: "التوازي والتعامد ومحيط المستطيل",
     yt: {
       title: "التوازي والتعامد ومحيط المستطيل بأمثلة من الواقع | هندسة السنة الثالثة أساسي — الحلقة 3 📐",
-      desc: `حلقة الهندسة من "أكاديمية الثالثة أساسي"! نكتشف الهندسة في كل مكان حولنا:
+      desc: `حلقة الهندسة من "برافو أكاديمي"! نكتشف الهندسة في كل مكان حولنا:
 ✅ التوازي: سكة القطار 🚂 — مستقيمان لا يلتقيان أبدًا
 ✅ التعامد: شباك سيدي بوسعيد 🪟 — الزاوية القائمة والكوس
 ✅ محيط المستطيل: جنان عم أحمد 🌱 — P = 2 × (12 + 8) = 40 m
