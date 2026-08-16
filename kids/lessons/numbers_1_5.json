@@ -1,0 +1,85 @@
+{
+  "title": "نتعلّموا الأعداد ١ ← ٥",
+  "brand": "نونو البومة 🦉 · تعلّم ولعب",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "theme": "candy",
+  "scenes": [
+    {
+      "type": "intro",
+      "audio": "audio/n0.mp3",
+      "owl": "hello",
+      "caption": "أهلاً! أنا نونو 🦉",
+      "big": "١ ٢ ٣ ٤ ٥"
+    },
+    {
+      "type": "count",
+      "audio": "audio/n1.mp3",
+      "owl": "ask",
+      "caption": "تفّاحة وحدة",
+      "digit": "١",
+      "word": "واحد",
+      "emoji": "apple",
+      "n": 1
+    },
+    {
+      "type": "count",
+      "audio": "audio/n2.mp3",
+      "owl": "ask",
+      "caption": "زوز بالونات",
+      "digit": "٢",
+      "word": "إثنين",
+      "emoji": "balloon",
+      "n": 2
+    },
+    {
+      "type": "count",
+      "audio": "audio/n3.mp3",
+      "owl": "ask",
+      "caption": "ثلاثة نجوم",
+      "digit": "٣",
+      "word": "ثلاثة",
+      "emoji": "star",
+      "n": 3
+    },
+    {
+      "type": "count",
+      "audio": "audio/n4.mp3",
+      "owl": "ask",
+      "caption": "أربعة قلوب",
+      "digit": "٤",
+      "word": "أربعة",
+      "emoji": "heart",
+      "n": 4
+    },
+    {
+      "type": "count",
+      "audio": "audio/n5.mp3",
+      "owl": "ask",
+      "caption": "خمسة زهور",
+      "digit": "٥",
+      "word": "خمسة",
+      "emoji": "flower",
+      "n": 5
+    },
+    {
+      "type": "quiz",
+      "audio": "audio/n6.mp3",
+      "owl": "ask",
+      "caption": "قدّاش من نجمة؟ عدّ معايا!",
+      "emoji": "star",
+      "n": 3,
+      "answer": "٣",
+      "reveal_at": 0.62
+    },
+    {
+      "type": "outro",
+      "audio": "audio/n7.mp3",
+      "owl": "happy",
+      "caption": "برافو عليكم! 🎉",
+      "big": "برافو!",
+      "confetti": true
+    }
+  ]
+}

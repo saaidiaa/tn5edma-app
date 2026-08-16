@@ -7,3 +7,6 @@
 
 # Local previews
 *.log
+
+# Video renders (generated)
+video/out/_silent.mp4
