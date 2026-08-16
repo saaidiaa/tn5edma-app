@@ -109,6 +109,26 @@
   .vshort{width:min(300px,70vw); aspect-ratio:9/16; margin:14px auto 0; display:block;
           border:3px solid var(--ink); border-radius:18px; background:#000}
   footer{text-align:center; padding:30px; color:var(--blue-d); font-weight:600}
+  .brand-kit{
+    background:var(--card); border:4px solid var(--ink); border-radius:28px;
+    box-shadow:8px 8px 0 rgba(30,34,44,.85); margin:0 auto 48px; padding:24px;
+    max-width:1100px;
+  }
+  .brand-kit h2{margin-bottom:16px}
+  .brand-grid{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px}
+  .brand-item{
+    flex:1; min-width:200px; text-align:center; background:#f6f3ea;
+    border:2px solid var(--ink); border-radius:18px; padding:14px;
+  }
+  .brand-item.wide{flex:2.4; min-width:300px}
+  .brand-item img{max-width:100%; max-height:190px; border-radius:12px}
+  .brand-item span{display:block; font-weight:700; font-size:.85rem; margin:10px 0}
+  .cal h3{margin-bottom:10px}
+  .cal table{width:100%; border-collapse:collapse; font-size:.9rem}
+  .cal th,.cal td{border:2px solid var(--ink); padding:9px 12px; text-align:right}
+  .cal th{background:var(--sun); font-weight:800}
+  .cal td:first-child{font-weight:800; background:#f6f3ea}
+  .cal .tip{margin-top:12px; font-size:.85rem; color:var(--blue-d); font-weight:600}
 </style>
 </head>
 <body>
@@ -119,7 +139,35 @@
   <p>حلقات تعليمية مستوحاة من البرنامج الرسمي للسنة الثالثة أساسي · أرقام لاتينية · صور واقعية · جاهزة للنشر</p>
 </header>
 
-<main id="list"></main>
+<main>
+  <section class="brand-kit">
+    <h2>🎨 هوية القناة</h2>
+    <div class="brand-grid">
+      <div class="brand-item">
+        <img src="assets/brand/logo.png" alt="اللوغو">
+        <span>اللوغو (صورة القناة)</span>
+        <a class="dl" href="assets/brand/logo.png" download>⬇ تحميل</a>
+      </div>
+      <div class="brand-item wide">
+        <img src="assets/brand/banner_final.jpg" alt="البانر">
+        <span>بانر القناة 2560×1440 (المنطقة الآمنة مضبوطة)</span>
+        <a class="dl" href="assets/brand/banner_final.jpg" download>⬇ تحميل</a>
+      </div>
+    </div>
+    <div class="cal">
+      <h3>📅 رزنامة النشر الأسبوعية</h3>
+      <table>
+        <tr><th>اليوم</th><th>18:00 يوتيوب (النشر الأول)</th><th>19:30 فيسبوك/ريلز (النشر الثاني)</th></tr>
+        <tr><td>الأحد</td><td>حلقة رياضيات / عربية</td><td>نفس الحلقة + Short</td></tr>
+        <tr><td>الأربعاء</td><td>حلقة إيقاظ علمي</td><td>نفس الحلقة + Short</td></tr>
+        <tr><td>الجمعة</td><td>حلقة فرنسية</td><td>Short الأسبوع الأكثر تفاعلاً</td></tr>
+      </table>
+      <p class="tip">💡 قاعدة: الـ Short يخرج على يوتيوب <b>بعد 48 ساعة</b> من الحلقة الكاملة، مع رابط الحلقة في التعليق المثبّت.</p>
+    </div>
+  </section>
+
+  <div id="list"></div>
+</main>
 
 <footer>صُنعت بمحرّك <b>render_t3.py</b> — كل حلقة = ملف JSON واحد ✨</footer>
 
@@ -361,6 +409,149 @@ const EPISODES = [
     }
   },
   {
+    id: "ep7_matter",
+    num: 7,
+    dur: "1:33",
+    display: "حالات المادة وتحولاتها",
+    yt: {
+      title: "سر الماء العجيب: صلب، سائل، غازي! حالات المادة وتحولاتها | إيقاظ علمي الثالثة أساسي — الحلقة 7 🧊",
+      desc: `نفس المادة… ثلاث حالات! في هذه الحلقة نكتشف أسرار المادة بتجارب من مطبخنا:
+✅ الحالات الثلاث: صلبة (الجليد) · سائلة (الماء) · غازية (البخار)
+✅ الانصهار: الجليد يذوب عند 0 °C
+✅ التبخر: الماء يغلي عند 100 °C
+✅ التجمد والتكاثف — الدورة الكاملة!
+
+⏱ محتوى الحلقة:
+00:00 جينيريك + الحالات الثلاث للمادة
+00:34 الانصهار والتجمد (تجربة الجليد)
+01:02 كويز الغليان + التكاثف
+
+📝 تمرين الدار: وين نشوفو التكاثف في الدار؟ (تلميح: المرآة بعد الدوش!) الجواب في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس حتى تصلك بقية حلقات الإيقاظ العلمي!`,
+      tags: "حالات المادة, الانصهار, التبخر, التكاثف, إيقاظ علمي, السنة الثالثة أساسي, تجارب علمية, تعليم تونس, états de la matière, sciences",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep7_matter.srt",
+        "قائمة التشغيل: إيقاظ علمي — السنة الثالثة أساسي",
+        "الظهور: مجدول — الأربعاء 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep7_matter.jpg"
+      ]
+    },
+    fb: {
+      title: "🧊 الجليد يذوب عند 0° والماء يغلي عند 100° — لكن هل يعرف طفلك «علاش»؟",
+      desc: `درس إيقاظ علمي ممتع بتجارب من المطبخ: حالات المادة الثلاث وتحولاتها 💧
+الانصهار، التجمد، التبخر، والتكاثف — بصور واقعية وأمثلة يعيشها الطفل كل يوم.
+📝 تحدي: وين نشوفو التكاثف في الدار؟ جاوب في التعليقات!
+#إيقاظ_علمي #حالات_المادة #السنة_الثالثة_أساسي #تجارب_علمية #تعليم_تونس`,
+      tags: "#حالات_المادة #الانصهار #التبخر #إيقاظ_علمي #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep7_matter_short.mp4",
+        "الجمهور: أولياء + معلمون + صفحات الأنشطة العلمية",
+        "أفضل وقت للنشر: الأربعاء 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 6 + رابط اليوتيوب",
+        "الـ Short = كويز الغليان 100 °C — سؤال يثير الفضول"
+      ]
+    }
+  },
+  {
+    id: "ep8_grammar",
+    num: 8,
+    dur: "1:37",
+    display: "الجملة الفعلية والجملة الاسمية",
+    yt: {
+      title: "الفرق بين الجملة الفعلية والاسمية في دقيقة ونصف! | لغة عربية السنة الثالثة أساسي — الحلقة 8 ✏️",
+      desc: `أول حلقة لغة عربية في السلسلة! قاعدة بسيطة تفتح باب القواعد كله:
+✅ الجملة الفعلية: تبدأ بفعل — «يلعب سامي بالكرة» (فعل + فاعل + مكمل)
+✅ الجملة الاسمية: تبدأ باسم — «الكتاب ممتع» (مبتدأ + خبر)
+✅ السر الذهبي: انظر لأول كلمة فقط!
+✅ كويز: «ينجح المجتهد» — فعلية أم اسمية؟
+
+⏱ محتوى الحلقة:
+00:00 جينيريك + الجملة الفعلية
+00:36 الجملة الاسمية (مبتدأ + خبر)
+01:08 كويز + تمرين الدار
+
+📝 تمرين الدار: اكتب جملتين عن المدرسة — واحدة فعلية وواحدة اسمية — في التعليقات 👇
+
+🔔 اشترك وفعّل الجرس — القادم: أول درس فرنسية!`,
+      tags: "الجملة الفعلية, الجملة الاسمية, قواعد اللغة العربية, السنة الثالثة أساسي, نحو, مبتدأ وخبر, فعل وفاعل, تعليم تونس, لغة عربية",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: العربية · الترجمة: ep8_grammar.srt",
+        "قائمة التشغيل: لغة عربية — السنة الثالثة أساسي (قائمة جديدة!)",
+        "الظهور: مجدول — الأحد 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep8_grammar.jpg"
+      ]
+    },
+    fb: {
+      title: "✏️ «يلعب سامي» و «الكتاب ممتع» — قاعدة وحيدة تفرق بينهما، طفلك يعرفها؟",
+      desc: `أبسط شرح للجملة الفعلية والجملة الاسمية 📚
+السر كله في أول كلمة: فعل ➜ جملة فعلية، اسم ➜ جملة اسمية!
+مع كويز تفاعلي «وقّف الفيديو وجاوب» 🎯
+📝 تحدي: اكتب جملة فعلية وجملة اسمية عن المدرسة في التعليقات!
+#لغة_عربية #قواعد #الجملة_الفعلية #السنة_الثالثة_أساسي #تعليم_تونس`,
+      tags: "#لغة_عربية #الجملة_الفعلية #الجملة_الاسمية #قواعد #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep8_grammar_short.mp4",
+        "الجمهور: أولياء + معلمو اللغة العربية",
+        "أفضل وقت للنشر: الأحد 19:00–21:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 7 + رابط اليوتيوب",
+        "الـ Short = كويز «ينجح المجتهد» — تفاعل مضمون من الأولياء"
+      ]
+    }
+  },
+  {
+    id: "ep9_french",
+    num: 9,
+    dur: "1:30",
+    display: "Les sons et les lettres — تأسيس الفرنسية",
+    yt: {
+      title: "Les sons et les lettres : أول درس فرنسية لطفلك بصوت فرنسي أصلي! | 3e année — الحلقة 9 🇫🇷",
+      desc: `Première leçon de français ! أول حلقة فرنسية في السلسلة — بصوت معلمة فرنسية مميز:
+✅ L'alphabet : A comme Avion, B comme Ballon, C comme Cadeau
+✅ Ma première phrase : Lina mange une pomme
+✅ La règle d'or : Sujet + Verbe + Complément (S+V+C)
+✅ Petit quiz : B comme… ?
+
+⏱ محتوى الحلقة:
+00:00 Générique + L'alphabet et les sons
+00:34 Ma première phrase (S+V+C)
+01:04 Petit quiz + devoir à la maison
+
+📝 Devoir : trouvez 3 mots qui commencent par la lettre A — dans les commentaires 👇
+
+🔔 Abonnez-vous ! اشترك حتى تصلك بقية دروس الفرنسية!`,
+      tags: "français 3ème année, les sons et les lettres, alphabet français, تأسيس الفرنسية, السنة الثالثة أساسي, فرنسية للأطفال, sujet verbe complément, apprendre le français, تعليم تونس",
+      settings: [
+        "الفئة: التعليم (Education)",
+        "الجمهور: مصنوع للأطفال (Made for Kids) ✅",
+        "اللغة: الفرنسية · الترجمة: ep9_french.srt",
+        "قائمة التشغيل: Français — السنة الثالثة أساسي (قائمة جديدة!)",
+        "الظهور: مجدول — الجمعة 18:00 (وقت تونس)",
+        "الصورة المصغرة الجاهزة: out/thumbs/ep9_french.jpg"
+      ]
+    },
+    fb: {
+      title: "🇫🇷 A comme Avion! أول درس فرنسية لطفلك — بصوت معلمة فرنسية حقيقية",
+      desc: `مرحلة التأسيس في الفرنسية تبدأ من هنا! 🎓
+Les sons et les lettres + أول جملة كاملة: Sujet + Verbe + Complément
+بصوت فرنسي أصلي ونطق سليم من أول يوم ✨
+📝 Défi : 3 mots qui commencent par A — في التعليقات!
+#français #تأسيس_الفرنسية #السنة_الثالثة_أساسي #تعليم_تونس #فرنسية_للأطفال`,
+      tags: "#français #الفرنسية #تأسيس #alphabet #السنة_الثالثة_أساسي #تعليم_تونس",
+      settings: [
+        "المنصة: فيسبوك (أفقي) + Short جاهز: out/shorts/ep9_french_short.mp4",
+        "الجمهور: أولياء يهتمون بالفرنسية المبكرة (شريحة كبيرة في تونس!)",
+        "أفضل وقت للنشر: الجمعة 18:00–20:00",
+        "أول تعليق مثبّت: حل تمرين الحلقة 8 + رابط اليوتيوب",
+        "الـ Short = A comme Avion — النطق الفرنسي يجذب المتابعين"
+      ]
+    }
+  },
+  {
     id: "ep3_geometry",
     num: 3,
     dur: "1:36",
@@ -432,9 +623,11 @@ function switchTab(epId, which){
 
 EPISODES.sort((a,b)=>a.num-b.num);
 const THUMBS = { ep1_numbers:1, ep2_operations:1, ep3_geometry:1,
-                 ep4_multiplication:1, ep5_respiration:1, ep6_circuit:1 };
+                 ep4_multiplication:1, ep5_respiration:1, ep6_circuit:1,
+                 ep7_matter:1, ep8_grammar:1, ep9_french:1 };
 const SHORTS = { ep1_numbers:1, ep2_operations:1, ep3_geometry:1,
-                 ep4_multiplication:1, ep5_respiration:1, ep6_circuit:1 };
+                 ep4_multiplication:1, ep5_respiration:1, ep6_circuit:1,
+                 ep7_matter:1, ep8_grammar:1, ep9_french:1 };
 document.getElementById("list").innerHTML = EPISODES.map(e => `
   <section class="ep">
     <div class="ep-head">

@@ -27,6 +27,9 @@ THUMBS = [
     ("ep4_multiplication", "assets/img/ep4_eggs.jpg",      "3 x 4 = ?"),
     ("ep5_respiration",    "assets/img/ep5_lungs.jpg",     "90 / min"),
     ("ep6_circuit",        "assets/img/ep6_battery.jpg",   "4.5 V"),
+    ("ep7_matter",         "assets/img/ep7_steam.jpg",     "0 -> 100 °C"),
+    ("ep8_grammar",        "assets/img/ep8_board.jpg",     "Quiz ?"),
+    ("ep9_french",         "assets/img/ep9_letters.jpg",   "A B C"),
 ]
 
 

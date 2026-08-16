@@ -24,6 +24,9 @@ SHORTS = {
     "ep4_multiplication": [1],       # كويز الفران
     "ep5_respiration":    [2],       # كويز التلوث
     "ep6_circuit":        [1],       # تجربة الدارة
+    "ep7_matter":         [2],       # كويز الغليان 100 درجة
+    "ep8_grammar":        [2],       # كويز نوع الجملة
+    "ep9_french":         [0],       # A comme Avion
 }
 
 

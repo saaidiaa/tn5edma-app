@@ -125,6 +125,17 @@ def text_center(draw, cx, cy, txt, fnt, fill):
     return w, h
 
 
+def font_fit(draw, kind, size, txt, max_w):
+    """يصغّر الخط تدريجياً حتى يسع النص في العرض المحدد."""
+    f = font(kind, size)
+    w, _, _ = measure(draw, txt, f)
+    while w > max_w and size > 24:
+        size = int(size * 0.93)
+        f = font(kind, size)
+        w, _, _ = measure(draw, txt, f)
+    return f
+
+
 def card(img, box, radius=42, fill=WHITE, line=INK, w=7, shadow=12):
     d = ImageDraw.Draw(img)
     x0, y0, x1, y1 = box
@@ -199,6 +210,98 @@ def hand_ellipse(draw, box, color, progress, width=9, seed=3):
         draw.line(pts, fill=color, width=width, joint="curve")
 
 
+# ------------------------------------------------- جينيريك المقدمة ---------
+_LOGO = None
+
+
+def load_logo(height):
+    global _LOGO
+    if _LOGO is not None and _LOGO.height == height:
+        return _LOGO
+    p = os.path.join(HERE, "assets", "brand", "logo.png")
+    if not os.path.exists(p):
+        return None
+    im = Image.open(p).convert("RGBA")
+    px = im.load()
+    w, h = im.size
+    for yy in range(h):
+        for xx in range(w):
+            r, g, b, a = px[xx, yy]
+            if r > 244 and g > 244 and b > 244:
+                px[xx, yy] = (r, g, b, 0)
+    bb = im.getbbox()
+    if bb:
+        im = im.crop(bb)
+    ratio = height / im.height
+    _LOGO = im.resize((max(1, int(im.width * ratio)), height), Image.LANCZOS)
+    return _LOGO
+
+
+def draw_intro(cfg, t, dur, bg):
+    """جينيريك احترافي: اللوغو يهبط + العنوان + شارة الحلقة + نجوم."""
+    W, H = cfg["width"], cfg["height"]
+    frame = bg.copy().convert("RGBA")
+    d = ImageDraw.Draw(frame)
+
+    # ستارة زرقاء تفتح
+    open_p = ease_out(t / 0.45)
+    cw = int((W / 2) * (1 - open_p))
+    if cw > 0:
+        d.rectangle((0, 0, cw, H), fill=BLUE_DARK)
+        d.rectangle((W - cw, 0, W, H), fill=BLUE_DARK)
+
+    # نجوم متلألئة
+    rnd = random.Random(5)
+    for i in range(26):
+        sx, sy = rnd.randint(40, W - 40), rnd.randint(40, H - 40)
+        ph = (t * 2 + i * 0.7) % 2
+        s = 6 + 5 * max(0.0, math.sin(ph * math.pi))
+        col = [SUN, CORAL, TEAL][i % 3]
+        d.polygon([(sx, sy - s), (sx + s * 0.35, sy - s * 0.35), (sx + s, sy),
+                   (sx + s * 0.35, sy + s * 0.35), (sx, sy + s),
+                   (sx - s * 0.35, sy + s * 0.35), (sx - s, sy),
+                   (sx - s * 0.35, sy - s * 0.35)], fill=col)
+
+    # اللوغو يهبط بنطة
+    logo = load_logo(int(H * 0.42))
+    if logo:
+        entry = ease_out_back((t - 0.25) / 0.6) if t > 0.25 else 0.0
+        ly = int(H * 0.10 + (1 - entry) * (-H * 0.5))
+        frame.alpha_composite(logo, ((W - logo.width) // 2, ly))
+        d = ImageDraw.Draw(frame)
+
+    # العنوان
+    p2 = ease_out((t - 1.0) / 0.5)
+    if p2 > 0:
+        f_t = font("ar", int(84 * (0.85 + 0.15 * p2)))
+        txt = shape(cfg.get("title", ""))
+        tw, th, _ = measure(d, txt, f_t)
+        y0 = int(H * 0.60)
+        pad = 40
+        card(frame, (W / 2 - tw / 2 - pad, y0, W / 2 + tw / 2 + pad,
+                     y0 + th + 56), radius=40, fill=SUN, w=8, shadow=12)
+        d = ImageDraw.Draw(frame)
+        text_center(d, W / 2, y0 + (th + 56) / 2, txt, f_t, INK)
+
+    # شارة الحلقة
+    p3 = ease_out((t - 1.5) / 0.4)
+    ep = cfg.get("episode", "")
+    if p3 > 0 and ep:
+        f_e = font("num", 62)
+        et = "EPISODE %s" % ep
+        ew, eh, _ = measure(d, et, f_e)
+        y1 = int(H * 0.60) + 170
+        card(frame, (W / 2 - ew / 2 - 34, y1, W / 2 + ew / 2 + 34,
+                     y1 + eh + 40), radius=36, fill=CORAL, w=7, shadow=10)
+        d = ImageDraw.Draw(frame)
+        text_center(d, W / 2, y1 + (eh + 40) / 2, et, f_e, WHITE)
+
+    # التوقيع
+    f_b = font("ar", 40)
+    text_center(d, W / 2, H - 60, shape(cfg.get("brand", "")), f_b, BLUE_DARK)
+    return frame.convert("RGB")
+
+
 # ------------------------------------------------------------- الإطار ------
 def draw_frame(cfg, scene, t, dur, bg, idx, total):
     W, H = cfg["width"], cfg["height"]
@@ -253,8 +356,8 @@ def draw_frame(cfg, scene, t, dur, bg, idx, total):
     # --- فقاعة التعليق تحت الصورة
     cap = scene.get("caption", "")
     if cap:
-        f_cap = font("ar", 46)
         txt = shape(cap)
+        f_cap = font_fit(d, "ar", 46, txt, ph_w - 30)
         cw, ch, _ = measure(d, txt, f_cap)
         bw2 = min(ph_w + 40, cw + 80)
         bx = px0 + ph_w / 2
@@ -296,9 +399,10 @@ def draw_frame(cfg, scene, t, dur, bg, idx, total):
             style = ln.get("style", "eq")
             col, size = STYLE.get(style, STYLE["eq"])
             kind = "ar" if AR_RE.search(ln["text"]) else "num"
-            f_eq = font(kind, int(size * (0.9 + 0.1 * p)))
-            y = base_y + slot * (i + 0.5) + (1 - p) * 36
             txt = shape(ln["text"])
+            f_eq = font_fit(d, kind, int(size * (0.9 + 0.1 * p)), txt,
+                            (bx1 - bx0) - 110)
+            y = base_y + slot * (i + 0.5) + (1 - p) * 36
             w_, h_, b_ = measure(d, txt, f_eq)
             x_ = ccx - w_ / 2 - b_[0]
             d.text((x_ + 4, y - h_ / 2 - b_[1] + 4), txt, font=f_eq,
@@ -402,9 +506,10 @@ def _draw_vertical(cfg, scene, t, dur, frame, idx):
             style = ln.get("style", "eq")
             col, size = STYLE.get(style, STYLE["eq"])
             kind = "ar" if AR_RE.search(ln["text"]) else "num"
-            f_eq = font(kind, int(size * (0.9 + 0.1 * p)))
-            y = yy + slot * (i + 0.5) + (1 - p) * 36
             txt = shape(ln["text"])
+            f_eq = font_fit(d, kind, int(size * (0.9 + 0.1 * p)), txt,
+                            (bx1 - bx0) - 110)
+            y = yy + slot * (i + 0.5) + (1 - p) * 36
             w_, h_, b_ = measure(d, txt, f_eq)
             x_ = ccx - w_ / 2 - b_[0]
             d.text((x_ + 4, y - h_ / 2 - b_[1] + 4), txt, font=f_eq,
@@ -498,10 +603,10 @@ def fmt_ts(sec):
     return "%02d:%02d:%02d,%03d" % (h, m, s, ms)
 
 
-def write_srt(scenes, durs, path):
+def write_srt(scenes, durs, path, offset0=0.0):
     """يولّد ملف ترجمة SRT من نصوص narration (جملة جملة حسب الطول)."""
     cues = []
-    offset = 0.0
+    offset = offset0
     for sc, dur in zip(scenes, durs):
         txt = sc.get("narration", "").strip()
         if txt:
@@ -528,6 +633,8 @@ def main():
     ap.add_argument("--bgm", action="store_true",
                     help="موسيقى خلفية هادئة متولّدة أوتوماتيكياً")
     ap.add_argument("--bgm-vol", type=float, default=0.30)
+    ap.add_argument("--intro", action="store_true",
+                    help="جينيريك مقدمة 3.2 ثانية باللوغو")
     args = ap.parse_args()
 
     cfg = json.load(open(args.scenes, encoding="utf-8"))
@@ -546,6 +653,7 @@ def main():
             audios.append(None)
 
     bg = make_background(W, H)
+    intro_dur = 3.2 if args.intro else 0.0
 
     silent = args.out + ".silent.mp4"
     proc = subprocess.Popen(
@@ -555,8 +663,15 @@ def main():
          "-pix_fmt", "yuv420p", silent],
         stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    total_frames = sum(int(d * FPS) for d in durs)
+    total_frames = sum(int(d * FPS) for d in durs) + int(intro_dur * FPS)
     done = 0
+    if intro_dur:
+        n = int(intro_dur * FPS)
+        for f in range(n):
+            t = f / FPS
+            img = draw_intro(cfg, t, intro_dur, bg)
+            proc.stdin.write(img.tobytes())
+            done += 1
     for i, (sc, dur) in enumerate(zip(scenes, durs)):
         n = int(dur * FPS)
         for f in range(n):
@@ -572,9 +687,9 @@ def main():
     proc.wait()
     print("\r  video ok" + " " * 20)
 
-    # SRT
+    # SRT (مزاح بمدة الجينيريك)
     srt = os.path.splitext(args.out)[0] + ".srt"
-    write_srt(scenes, durs, srt)
+    write_srt(scenes, durs, srt, offset0=intro_dur)
 
     if args.no_audio or not any(audios):
         os.replace(silent, args.out)
@@ -582,8 +697,8 @@ def main():
         return
 
     inputs, filters, labels = [], [], []
-    offset, k = 0.0, 0
-    total_dur = sum(durs)
+    offset, k = intro_dur, 0
+    total_dur = sum(durs) + intro_dur
     for a, dur in zip(audios, durs):
         if a:
             inputs += ["-i", a]
